@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>CSS Template</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="text/javascript" src="data.json"></script>
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+		color:white;
+}
+nav {
+    float: left;
+    width: 30%;
+    height: 500px; 
+    background: #323544;
+    padding: 20px;
+}
+article {
+    float: left;
+    padding: 20px;
+    width: 70%;
+    background-color: #292A35;
+    height: 500px; 
+}
+
+.listItem{
+height:60px;
+float:top;
+}
+.userImg{
+	padding-top: 5px;
+	padding-left: 2px;
+	width: 15%;
+    float: left;
+}
+#userImgBig{
+padding-bottom:100px;
+}
+.nameAndBday{
+	width: 80	%;
+	height:100%;
+	float:left;
+}
+h1{
+	font-size: 25px;
+	padding-left:10px;
+	margin-top:10px;
+}
+h2{
+	font-size: 20px;
+	padding-left:10px;
+	margin-top:10px;
+}
+h3{
+	font-size: 15px;
+	padding-left:10px;
+	position: relative;
+	bottom:10px;
+}
+.deleteImg{
+	width: 5%;
+    float: right;
+	margin-top:20px;
+}
+#details{
+	width: 85%;
+	float: left;
+	padding-left:20px;
+}
+</style>
+</head>
+<body> 	
+
+  <nav id = "nav">
+	<h1 id = "tempId" >Users</h1>
+	<div id="userslist">  
+	</div>
+  </nav>
+
+  <article>
+    <h1>Full Details</h1>   
+	<img id = "userImgBig" class = "userImg" src="profile-image01.png"> 
+	<div id="details">
+		<h2 id="id"></h2>
+		<h3>ID</h3>
+		
+		<h2 id="fName"></h2>
+		<h3>First Name</h3>
+		
+		<h2 id="lName"></h2>
+		<h3>Last Name</h3>
+		
+		<h2 id="bDay"></h2>
+		<h3>Birth Date</h3>
+		
+	</div>
+  </article>
+
+
+<script>
+function readJson() {
+	var out = "";
+    var i;
+    for(i = 0; i<data.length; i++) {
+		out += '<div class = "listItem" onclick="showUserById(' + data[i].id + ')"><img class = "userImg" src="' + data[i].profileImage + '"><div class = "nameAndBday"><h2 id="name"> ' + data[i].firstName + ' ' + data[i].lastName + '</h2><h3> ' + formatDate(new Date(data[i].birthDate)) + '</h3></div><img class = "deleteImg" src="deleteIcon.png">	</div>';
+        //out += '<div class = "listItem" onclick="showUserById(1226176321)"> <img class = "userImg" src="' + arr[i].profileImage + '"><div class = "nameAndBday"><h2 id="name">' + arr[i].firstName + ' ' + arr[i].lastName + '</h2><h3>' + formatDate(new Date(arr[i].birthDate)) + '</h3></div>';
+    }
+    document.getElementById("userslist").innerHTML = out;
+}
+readJson();
+
+function formatDate(date) {
+  var monthNames = [
+    "January", "February", "March",
+    "April", "May", "June", "July",
+    "August", "September", "October",
+    "November", "December"
+  ];
+
+  var day = date.getDate();
+  var monthIndex = date.getMonth();
+  var year = date.getFullYear();
+  return monthNames[monthIndex] + ' ' + day + ', ' + year;
+}
+
+
+function showUserById(id){
+	for(i = 0; i<data.length; i++) {
+	
+		if(data[i].id==id){
+			document.getElementById("userImgBig").src = data[i].profileImage;
+			document.getElementById("id").innerHTML = data[i].id;
+			document.getElementById("fName").innerHTML = data[i].firstName;
+			document.getElementById("lName").innerHTML = data[i].lastName;
+			document.getElementById("bDay").innerHTML = formatDate(new Date(data[i].birthDate));
+			return;
+		}
+	
+	}
+}
+showUserById(data[0].id);
+
+
+
+function loadJSON(callback) {   
+
+    var xobj = new XMLHttpRequest();
+        xobj.overrideMimeType("application/json");
+    xobj.open('GET', 'myData.json', true); // Replace 'my_data' with the path to your file
+    xobj.onreadystatechange = function () {
+          if (xobj.readyState == 4 && xobj.status == "200") {
+            // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+            callback(xobj.responseText);
+          }
+    };
+    xobj.send(null);  
+ }
+ 
+ function init() {
+ var response;
+ loadJSON(function(response) {
+  // Parse JSON string into object
+    var actual_JSON = JSON.parse(response);
+	document.getElementById("tempId").src = bla;
+	//actual_JSON[0].id
+ });
+}
+init();
+
+</script>
+
+
+
+</body>
+</html>
