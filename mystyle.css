@@ -1,0 +1,173 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial, Helvetica, sans-serif;
+	color:white;
+	background-color:#323544
+}
+nav {
+    float: left;
+    width: 30%;
+    height: 500px; 
+    background: #323544;
+    padding: 20px;
+}
+article {
+    float: left;
+    padding: 20px;
+    width: 70%;
+    background-color: #292A35;
+    height: 500px; 
+}
+.listDiv{
+height:60px;
+float:top;
+}
+.userImg{
+	padding-top: 5px;
+	padding-left: 2px;
+	width: 15%;
+    float: left;
+}
+#userImgBig{
+padding-bottom:100px;
+}
+.nameAndBday{
+	width: 80%;
+	height:100%;
+	float:left;
+}
+h1{
+	font-size: 25px;
+	padding-left:10px;
+	margin-top:10px;
+}
+h2{
+	font-size: 20px;
+	padding-left:10px;
+	margin-top:10px;
+}
+h3{
+	font-size: 15px;
+	padding-left:10px;
+	position: relative;
+	bottom:10px;
+}
+.deleteImg{
+	width: 5%;
+    float: right;
+	margin-top:20px;
+}
+.deleteImg:hover{
+	background-color: white;
+}
+#details{
+	width: 85%;
+	float: left;
+	padding-left:20px;
+
+}
+#listHeader{
+	padding-bottom:70px;
+}
+#usersTxt{
+	float:left;
+}
+#addUserImg{
+	width:10%;
+	float:right;
+	padding-top:10px;
+	margin-left:20px;
+}
+#addUserImg:hover{
+	background-color: #292A35;
+}
+#sortUsersImg{
+	width:10%;
+	float:right;
+	padding-top:10px;
+}
+#sortUsersImg:hover{
+	background-color: #292A35;
+}
+ul {
+  list-style-type: none;
+}
+.btn{
+    background-color: #white;
+	color:black;
+    text-align: center;
+    font-size: 14px;
+    cursor: pointer;
+	width:100px;
+}
+.btn:hover{
+	background-color: white;
+}
+  
+  
+  
+/* --------------------------------------------------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------------------------------------------------- */
+/* --------------------------------             Styles for Drag&Drop List                      ------------------------- */
+
+  
+ .custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.custom-file-input::before {
+  content: 'upload Img';
+  display: inline-block;
+  background: transparent;
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 2px 4px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  font-size: 10pt;
+}
+.custom-file-input:hover::before {
+  border-color: black;
+}
+.custom-file-input:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+[draggable] {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -khtml-user-drag: element;
+  -webkit-user-drag: element;
+}
+.listItem {
+  border-top: #323544;
+  border-top-width: 10px;
+  -webkit-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  -ms-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+}
+.dragStartClass {
+  opacity: 0;
+  -webkit-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  -ms-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+}
+.listItem.over {
+  border-top-color: #323544;
+  border-top-width: 70px;
+  -webkit-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  -ms-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+}
