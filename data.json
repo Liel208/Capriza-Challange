@@ -1,0 +1,36 @@
+var data = [
+    {
+        "id": "1234",
+        "firstName": "Carina",
+        "lastName": "Smith",
+        "birthDate": 457694903479,
+        "profileImage": "./profile-image01.png"
+    },
+    {
+        "id": "12345",
+        "firstName": "Destiny",
+        "lastName": "Leal",
+        "birthDate": 773224103479,
+        "profileImage": "./profile-image02.png"
+    },
+    {
+        "id": "21345",
+        "firstName": "Agatha",
+        "lastName": "Sheppard",
+        "birthDate": 675937703479,
+        "profileImage": "./profile-image03.png"
+    },
+    {
+        "id": "12435",
+        "firstName": "Kester",
+        "lastName": "Cruz",
+        "birthDate": 365506103479,
+        "profileImage": "./profile-image04.png"
+    },
+    {
+        "id": "12356",
+        "firstName": "Roisin",
+        "lastName": "Hobbs",
+        "birthDate": 1142501303479
+    }
+];
