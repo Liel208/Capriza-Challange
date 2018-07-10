@@ -72,20 +72,42 @@ h3{
 	width: 85%;
 	float: left;
 	padding-left:20px;
+
+}
+#listHeader{
+	padding-bottom:70px;
+}
+#usersTxt{
+	float:left;
+}
+#addUserImg{
+	width:10%;
+	float:right;
+	padding-top:10px;
+}
+#sortUsersImg{
+	width:10%;
+	float:right;
+	padding-top:10px;
 }
 </style>
 </head>
 <body> 	
 
   <nav id = "nav">
-	<h1 id = "tempId" >Users</h1>
+	<div id= "listHeader">
+		<h1 id= "usersTxt">Users</h1>
+		<img id = "addUserImg" onclick="showAddUserForm()" src="addUser.png">
+		<img id = "sortUsersImg" onclick="sortUsers()" src="sortImg.png">
+	</div>
 	<div id="userslist">  
 	</div>
   </nav>
 
   <article>
     <h1>Full Details</h1>   
-	<img id = "userImgBig" class = "userImg" src="profile-image01.png"> 
+	<h2 id = "uploadBtn"> </h2>
+	<img id = "userImgBig" class = "userImg"/> 
 	<div id="details">
 		<h2 id="id"></h2>
 		<h3>ID</h3>
@@ -99,21 +121,23 @@ h3{
 		<h2 id="bDay"></h2>
 		<h3>Birth Date</h3>
 		
+		<h2 id="submit"> </h2>
+		
 	</div>
   </article>
 
 
 <script>
-function readJson() {
+
+function showUserslist() {
 	var out = "";
-    var i;
-    for(i = 0; i<data.length; i++) {
-		out += '<div class = "listItem" onclick="showUserById(' + data[i].id + ')"><img class = "userImg" src="' + data[i].profileImage + '"><div class = "nameAndBday"><h2 id="name"> ' + data[i].firstName + ' ' + data[i].lastName + '</h2><h3> ' + formatDate(new Date(data[i].birthDate)) + '</h3></div><img class = "deleteImg" src="deleteIcon.png">	</div>';
+    for(var i = 0; i<data.length; i++) {
+		out += '<div class = "listItem" onclick="showUserById(' + data[i].id + ')"><img class = "userImg" src="' + data[i].profileImage + '"><div class = "nameAndBday"><h2 id="name"> ' + data[i].firstName + ' ' + data[i].lastName + '</h2><h3> ' + formatDate(new Date(data[i].birthDate)) + '</h3></div><img class = "deleteImg" src="deleteIcon.png" onclick="deleteUserById(' + data[i].id + ')">	</div>';
         //out += '<div class = "listItem" onclick="showUserById(1226176321)"> <img class = "userImg" src="' + arr[i].profileImage + '"><div class = "nameAndBday"><h2 id="name">' + arr[i].firstName + ' ' + arr[i].lastName + '</h2><h3>' + formatDate(new Date(arr[i].birthDate)) + '</h3></div>';
     }
     document.getElementById("userslist").innerHTML = out;
 }
-readJson();
+showUserslist();
 
 function formatDate(date) {
   var monthNames = [
@@ -131,7 +155,7 @@ function formatDate(date) {
 
 
 function showUserById(id){
-	for(i = 0; i<data.length; i++) {
+	for(var i = 0; i<data.length; i++) {
 	
 		if(data[i].id==id){
 			document.getElementById("userImgBig").src = data[i].profileImage;
@@ -147,32 +171,73 @@ function showUserById(id){
 showUserById(data[0].id);
 
 
-
-function loadJSON(callback) {   
-
-    var xobj = new XMLHttpRequest();
-        xobj.overrideMimeType("application/json");
-    xobj.open('GET', 'myData.json', true); // Replace 'my_data' with the path to your file
-    xobj.onreadystatechange = function () {
-          if (xobj.readyState == 4 && xobj.status == "200") {
-            // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
-            callback(xobj.responseText);
-          }
-    };
-    xobj.send(null);  
- }
- 
- function init() {
- var response;
- loadJSON(function(response) {
-  // Parse JSON string into object
-    var actual_JSON = JSON.parse(response);
-	document.getElementById("tempId").src = bla;
-	//actual_JSON[0].id
- });
+function deleteUserById(id){
+	for(var i = 0; i<data.length; i++){
+		if(data[i].id==id){
+			temp = data[0];        // putting found elemnt at furst position to shift()
+			data[0] = data[i];
+			data[i] = temp;
+			data.shift();
+			break;
+		}
+	}
+	showUserslist();
 }
-init();
 
+function showAddUserForm(){
+	document.getElementById("uploadBtn").innerHTML = '<input type="file" id="selectedImg"/>';
+	document.getElementById("userImgBig").src = "plusImg.png";	
+	document.getElementById("id").innerHTML = 'A uniqe Id will be provided.';
+	document.getElementById("fName").innerHTML = '<input type="text" id="fNameBox">';
+	document.getElementById("lName").innerHTML = '<input type="text" id="lNameBox">';
+	document.getElementById("bDay").innerHTML = '<input type="date" id="bDayBox">';
+	document.getElementById("submit").innerHTML = '<button onclick="addUser()">send</button>';
+}
+
+function addUser(){
+
+	var newUser = {
+				id: uniqueId(),												//uniqueId(), 
+				firstName: document.getElementById("fNameBox").value,						//getElementById("fnameBox").value, 
+				lastName: document.getElementById("lNameBox").value,							//getElementById("lNameBox").value, 
+				birthDate: document.getElementById("bDayBox").value,				//getElementById("bDayBox").value, 
+				profileImage: document.getElementById("selectedImg").files[0].name													//"./profile-image01.png"
+				};
+	
+	data.push(newUser);
+	showUserslist();
+	showUserById(data[data.length-1].id);
+	document.getElementById("submit").innerHTML = '';
+}
+
+function uniqueId() {
+  return 'id-' + Math.random().toString(36).substr(2, 16);
+}
+
+function extractFileName(fullPath){
+alert(fullPath);
+var fullPath = document.getElementById('upload').value;
+if (fullPath) {
+    var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
+    var filename = fullPath.substring(startIndex);
+    if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+        filename = filename.substring(1);
+    }
+    return filename;
+}
+}
+
+function sortUsers(){
+	data.sort(compare);
+	showUserslist();
+}
+function compare(a,b) {
+  if (a.firstName < b.firstName)
+    return -1;
+  if (a.firstName > b.firstName)
+    return 1;
+  return 0;
+}
 </script>
 
 
