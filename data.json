@@ -26,11 +26,5 @@ var data = [
         "lastName": "Cruz",
         "birthDate": 365506103479,
         "profileImage": "./profile-image04.png"
-    },
-    {
-        "id": "12356",
-        "firstName": "Roisin",
-        "lastName": "Hobbs",
-        "birthDate": 1142501303479
     }
 ];
